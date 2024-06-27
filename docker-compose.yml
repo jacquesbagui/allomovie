@@ -1,0 +1,39 @@
+# docker-compose.yml
+
+version: '3'
+
+services:
+  django:
+    build: ./movie_reviews
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./movie_reviews:/app
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_DB=movie_reviews
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - DATABASE_URL=postgres://user:password@db:5432/movie_reviews
+
+  frontend:
+    build: ./movie-reviews-frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./movie-reviews-frontend:/app
+    depends_on:
+      - django
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: movie_reviews
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

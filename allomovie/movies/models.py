@@ -1,5 +1,6 @@
 from django.db import models
-from allomovie.core.models import TimeStampedModel
+
+from core.models import TimeStampedModel
 
 
 class Actor(TimeStampedModel):
