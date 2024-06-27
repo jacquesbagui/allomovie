@@ -20,16 +20,11 @@
               required
           ></v-textarea>
           <v-text-field
-              v-model="localMovie.actors"
-              label="Acteurs"
+              v-model="actorsText"
+              label="Acteurs (séparés par des virgules)"
               outlined
               required
           ></v-text-field>
-          <v-file-input
-              v-model="localMovie.imageUrl"
-              label="Image du film"
-              prepend-icon="mdi-camera"
-          ></v-file-input>
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -52,9 +47,21 @@ export default {
   },
   data() {
     return {
-      localMovie: { ...this.movie },
+      localMovie: {},
       dialog: true,
+      actorsText: '',
     };
+  },
+  watch: {
+    movie: {
+      handler(newMovie) {
+        this.localMovie = {
+          ...newMovie
+        };
+        this.actorsText = newMovie.actors.map(actor => `${actor.first_name} ${actor.last_name}`).join(', ');
+      },
+      immediate: true,
+    },
   },
   methods: {
     close() {
@@ -62,6 +69,15 @@ export default {
       this.$emit('close');
     },
     save() {
+      const actorNames = this.actorsText.split(',').map(name => name.trim());
+
+      this.localMovie.actors = actorNames.map(name => {
+        const names = name.split(' ');
+        const firstName = names.shift();
+        const lastName = names.join(' ');
+        return { first_name: firstName, last_name: lastName };
+      });
+
       this.$emit('save', this.localMovie);
       this.close();
     },

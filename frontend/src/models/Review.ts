@@ -1,6 +1,6 @@
 export interface Review {
     id?: number;
     movieId: number;
-    rating: number;
+    grade: number;
     comment: string;
 }
