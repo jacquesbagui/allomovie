@@ -17,30 +17,18 @@
     </v-container>
   </main>
 </template>
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useMovieStore } from '@/stores/movie';
 import MovieList from '@/components/Movie/MovieList.vue';
 
-export default {
-  components: {
-    MovieList,
-  },
-  data() {
-    return {
-      movies: [
-        { title: 'Film 1', description: 'Description du film 1' },
-        { title: 'Film 2', description: 'Description du film 2' },
-        { title: 'Film 3', description: 'Description du film 3' },
-        { title: 'Film 4', description: 'Description du film 4' },
-        { title: 'Film 5', description: 'Description du film 5' },
-        { title: 'Film 6', description: 'Description du film 6' },
-        { title: 'Film 7', description: 'Description du film 7' },
-        { title: 'Film 8', description: 'Description du film 8' },
-        { title: 'Film 9', description: 'Description du film 9' },
-        { title: 'Film 10', description: 'Description du film 10' },
-      ]
-    };
-  }
-};
+const store = useMovieStore();
+const movies = ref([]);
+
+onMounted(async () => {
+  await store.fetchMovies();
+  movies.value = store.movies;
+});
 </script>
 
 <style scoped>

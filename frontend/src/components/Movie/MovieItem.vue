@@ -2,7 +2,9 @@
   <v-card class="mx-auto my-5" max-width="344">
     <v-card-title>{{ movie.title }}</v-card-title>
     <v-card-actions>
-      <v-btn color="green-lighten-2" @click="exploreMovie">Voir plus</v-btn>
+      <router-link :to="{ name: 'movie', params: { id: movie.id } }">
+        <v-btn color="primary">Voir Détails</v-btn>
+      </router-link>
     </v-card-actions>
   </v-card>
 </template>
