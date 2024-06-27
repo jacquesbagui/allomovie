@@ -1,6 +1,5 @@
 <template>
   <main>
-
     <div class="greetings">
       <v-container>
         <v-row justify="center">
@@ -13,30 +12,24 @@
     </div>
 
     <v-container>
-      <MovieList :movies="movies" :items-per-page="5" />
+      <MovieList />
     </v-container>
   </main>
 </template>
+
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useMovieStore } from '@/stores/movie';
+import {ref, onMounted} from 'vue';
+import {useMovieStore} from '@/stores/movie';
 import MovieList from '@/components/Movie/MovieList.vue';
-
-const store = useMovieStore();
-const movies = ref([]);
-
-onMounted(async () => {
-  await store.fetchMovies();
-  movies.value = store.movies;
-});
 </script>
 
 <style scoped>
-  .green {
-    color: #4caf50;
-  }
-  .greetings {
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
+.green {
+  color: #4caf50;
+}
+
+.greetings {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
 </style>

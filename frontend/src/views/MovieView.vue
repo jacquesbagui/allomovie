@@ -62,6 +62,7 @@
             <v-card-text>
               <v-form @submit.prevent="submitReview">
                 <Rating v-model="newReview.grade" dense></Rating>
+                <v-alert v-if="gradeError" type="error" class="mt-2">La note est obligatoire.</v-alert>
                 <div class="mt-4">
                   <v-textarea
                       v-model="newReview.comment"
@@ -88,7 +89,7 @@
 <script setup>
 import Rating from 'primevue/rating';
 import { useRoute, useRouter } from 'vue-router';
-import {ref, onMounted, computed, watchEffect} from 'vue';
+import { ref, onMounted, computed, watchEffect } from 'vue';
 import { useMovieStore } from '@/stores/movie';
 import EditMovieModal from '@/components/modal/EditMovieModal.vue';
 
@@ -98,6 +99,7 @@ const router = useRouter();
 const showEditModal = ref(false);
 const addingReview = ref(false);
 const newReview = ref({ grade: 0, comment: '' });
+const gradeError = ref(false);
 
 watchEffect(() => {
   const movieId = Number(route.params.id);
@@ -114,6 +116,12 @@ const updateMovie = (updatedMovie) => {
 };
 
 const submitReview = async () => {
+  if (newReview.value.grade === 0) {
+    gradeError.value = true;
+    return;
+  }
+  gradeError.value = false;
+
   try {
     await store.addReview({
       movie: movie.value.id,
@@ -121,6 +129,7 @@ const submitReview = async () => {
       comment: newReview.value.comment,
     });
     addingReview.value = false;
+    newReview.value = { grade: 0, comment: '' }; // Reset the form
     showSnackbar('Avis ajouté avec succès', 'success');
   } catch (error) {
     console.error('Failed to add review:', error);
@@ -130,6 +139,8 @@ const submitReview = async () => {
 
 const closeAddingReview = () => {
   addingReview.value = false;
+  newReview.value = { grade: 0, comment: '' }; // Reset the form
+  gradeError.value = false;
 };
 
 // Gestion de la snackbar
@@ -150,7 +161,6 @@ const showSnackbar = (message, color) => {
 const goBack = () => {
   router.go(-1);
 };
-
 </script>
 
 <style scoped></style>

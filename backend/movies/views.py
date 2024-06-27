@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, pagination
 from .models import Actor, Movie
 from .serializers import ActorSerializer, MovieSerializer
 
@@ -11,3 +11,4 @@ class ActorViewSet(viewsets.ModelViewSet):
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    pagination_class = pagination.PageNumberPagination
