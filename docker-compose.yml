@@ -1,35 +1,33 @@
-# docker-compose.yml
-
 version: '3'
 
 services:
-  django:
-    build: ./movie_reviews
+  backend:
+    build: ./backend
     ports:
       - "8000:8000"
     volumes:
-      - ./movie_reviews:/app
+      - ./backend:/app
     depends_on:
       - db
     environment:
-      - POSTGRES_DB=movie_reviews
+      - POSTGRES_DB=allomovie
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
-      - DATABASE_URL=postgres://user:password@db:5432/movie_reviews
+      - DATABASE_URL=postgres://user:password@db:5432/allomovie
 
-  frontend:
-    build: ./movie-reviews-frontend
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./movie-reviews-frontend:/app
-    depends_on:
-      - django
+  #frontend:
+  #  build: ./frontend
+  #  ports:
+  #    - "8080:8080"
+  #  volumes:
+  #    - ./frontend:/app
+  #  depends_on:
+  #   - backend
 
   db:
     image: postgres
     environment:
-      POSTGRES_DB: movie_reviews
+      POSTGRES_DB: allomovie
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     volumes:
