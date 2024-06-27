@@ -1,0 +1,12 @@
+from django.db import models
+
+
+class TimeStampedModel(models.Model):
+    """
+    Abstract base class model 'created_at' and 'updated_at' fields.
+    """
+    created_at = models.DateTimeField(auto_now_add=True, help_text="Created Date")
+    updated_at = models.DateTimeField(auto_now=True, help_text="Last update Date")
+
+    class Meta:
+        abstract = True
