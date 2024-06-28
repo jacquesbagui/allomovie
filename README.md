@@ -20,6 +20,7 @@ Assurez-vous d'avoir Docker installé sur votre machine avant de continuer.
 
     ```bash 
     make
+    make migrate
 
 - Application frontend accessible à: http://localhost:5173
 
