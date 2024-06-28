@@ -1,7 +1,10 @@
+# Environments
+venv/
 .env
-.idea/
-.DS_Store
-__pycache__/
+
+# Python
 *.pyc
-media/
-static/
+__pycache__/
+*.pyo
+*.pyd
+*.pyd
