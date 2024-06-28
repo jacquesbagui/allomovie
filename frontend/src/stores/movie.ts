@@ -27,6 +27,14 @@ export const useMovieStore = defineStore('movie', {
             const movie = state.movies.find((movie) => movie.id === movieId);
             return movie ? movie.reviews : [];
         },
+        getAverageRatingForMovie: (state) => (movieId: number) => {
+            const movie = state.movies.find((movie) => movie.id === movieId);
+            if (movie && movie.reviews.length > 0) {
+                const totalRating = movie.reviews.reduce((sum, review) => sum + review.grade, 0);
+                return totalRating / movie.reviews.length;
+            }
+            return 0;
+        },
     },
     actions: {
         async fetchMovies(page: number = this.currentPage) {
@@ -68,6 +76,9 @@ export const useMovieStore = defineStore('movie', {
                 const response = await api.post(`/reviews/`, review);
                 if (this.movieDetails) {
                     this.movieDetails.reviews.push(response.data);
+                    // Recalculate and update average rating
+                    const totalRating = this.movieDetails.reviews.reduce((sum, r) => sum + r.grade, 0);
+                    this.movieDetails.averageRating = totalRating / this.movieDetails.reviews.length;
                 } else {
                     console.warn('Movie details not available.');
                 }
