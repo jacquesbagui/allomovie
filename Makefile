@@ -41,4 +41,7 @@ bash:
 createsuperuser:
 	docker-compose run --rm $(SERVICE_WEB) python manage.py createsuperuser
 
-.PHONY: all build up up-it down logs migrate makemigrations syncdb test shell prune bash createsuperuser
+init-test-data:
+	docker-compose run --rm $(SERVICE_WEB) python manage.py loaddata initial_data
+
+.PHONY: all build up up-it down logs migrate makemigrations syncdb test shell prune bash createsuperuser init-test-data

@@ -7,7 +7,7 @@ class Actor(TimeStampedModel):
     Actor Model
     """
     first_name = models.CharField(max_length=100, help_text="Enter the first name")
-    last_name = models.CharField(max_length=100, help_text="Enter the last name")
+    last_name = models.CharField(max_length=100, help_text="Enter the last name", blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
