@@ -27,6 +27,8 @@ Assurez-vous d'avoir Docker installé sur votre machine avant de continuer.
 
 - Application Backend accessible à: http://localhost:8000
 
+- Application Backend Admin accessible à: http://localhost:8000/admin
+
 3. **Création d'un Utilisateur Administrateur**
 
 - Pour créer un utilisateur administrateur (superuser) dans votre backend Django :
