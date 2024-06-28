@@ -1,8 +1,6 @@
-# Environments
 venv/
 .env
-
-# Python
+.idea
 *.pyc
 __pycache__/
 *.pyo
