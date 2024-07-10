@@ -1,6 +1,6 @@
 # Allomovie
 
-Ce projet est développé pour un test technique. Il comprend une application frontend Vue.js qui se connecte à un backend django (RestAPI) pour afficher et gérer des informations sur les films.
+Ce projet comprend une application frontend Vue.js qui se connecte à un backend django (RestAPI) pour afficher et gérer des informations sur les films.
 
 ## Prérequis
 
